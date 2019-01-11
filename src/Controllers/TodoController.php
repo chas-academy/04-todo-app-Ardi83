@@ -29,15 +29,15 @@ class TodoController extends Controller {
         $completed = isset($body['status']) ? 1 : 0; // whether or not the todo has been checked or not
 
         // TODO: Implement me!
-        $result = TodoItem::updateTodo($todoId, $body['title'], $completed = 0);
- 
+        $result = TodoItem::updateTodo($todoId, $body['title'], $completed);
+
         // if there's a result
         // use the redirect method to send the user back to the list of todos $this->redirect('/');
         if ($result) {
           $this->redirect('/');
         } else {
           // otherwise, throw an exception or show an error message
-          throw new Exception("Request for update failed!.");
+          throw new \Exception("Request for update failed!.");
         }
     }
 
