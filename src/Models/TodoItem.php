@@ -1,22 +1,39 @@
 <?php
 
 namespace Todo;
+use \Exception;
 
 class TodoItem extends Model
 {
     const TABLENAME = 'todos'; // This is used by the abstract model, don't touch
 
-    // public static function createTodo($title)
-    // {
-    //     // TODO: Implement me!
-    //     // Create a new todo
-    // }
+    public static function createTodo($title)
+    {
+        if (!isset($title)) {
+            throw new Exception("Parameter is required");
+        }
+        // TODO: Implement me!
+        $query = "INSERT INTO " . static::TABLENAME . " (title) VALUES (:title)";
+        self::$db->query($query);
 
-    // // public static function updateTodo($todoId, $title, $completed = null)
-    // // {
-    // //     // TODO: Implement me!
-    // //     // Update a specific todo
-    // // }
+        self::$db->bind(":title", $title);
+        
+        $result = self::$db->execute(['title' => $title]);    
+
+        if (!$result) {
+            throw new Exception("Could not create title!");
+        }
+
+        return $result;
+        // Create a new todo
+    }
+
+    public static function updateTodo($todoId, $title, $completed = null)
+    {
+        // TODO: Implement me!
+        
+        // Update a specific todo
+    }
 
     // public static function deleteTodo($todoId)
     // {
