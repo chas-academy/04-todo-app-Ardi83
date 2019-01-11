@@ -31,20 +31,19 @@ class TodoItem extends Model
     public static function updateTodo($todoId, $title, $completed = null)
     {
         // TODO: Implement me!
-        $query = "UPDATE" . static::TABLENAME . "
-            SET title = :title,
-            completed = :completed
-            WHERE id = :id";
+        $query = "UPDATE " . static::TABLENAME . " SET 
+        title = :title WHERE id = :id ";
 
         self::$db->query($query);
-        self::$db->bind(':id', $todoId);
-        self::$db->bind(':title', $title);
-        self::$db->bind(':completed', $completed);
+
+        self::$db->bind(":id", $todoId);
+        self::$db->bind(":title", $title);
         
         $result = self::$db->execute([
-            'title' => $title,
-            'completed' => $completed
-            ]);
+        'id' => $todoId,
+        'title' => $title,
+        'completed' => $completed
+        ]);
 
             if (!$result) {
                 throw new Exception("Can not update title!.");
