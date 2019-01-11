@@ -10,7 +10,7 @@ class TodoItem extends Model
     public static function createTodo($title)
     {
         if (!isset($title)) {
-            throw new Exception("parameter is required");
+            throw new Exception("Parameter is required");
         }
         // TODO: Implement me!
         $query = "INSERT INTO " . static::TABLENAME . " (title) VALUES (:title)";
@@ -21,19 +21,19 @@ class TodoItem extends Model
         $result = self::$db->execute(['title' => $title]);    
 
         if (!$result) {
-            throw new Exception("could not create title!");
+            throw new Exception("Could not create title!");
         }
 
-        // var_dump($result);
         return $result;
         // Create a new todo
     }
 
-    // // public static function updateTodo($todoId, $title, $completed = null)
-    // // {
-    // //     // TODO: Implement me!
-    // //     // Update a specific todo
-    // // }
+    public static function updateTodo($todoId, $title, $completed = null)
+    {
+        // TODO: Implement me!
+        
+        // Update a specific todo
+    }
 
     // public static function deleteTodo($todoId)
     // {
