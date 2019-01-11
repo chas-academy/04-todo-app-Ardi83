@@ -49,6 +49,8 @@ class TodoItem extends Model
             if (!$result) {
                 throw new Exception("Can not update title!.");
             }
+
+            return $result;
         // Update a specific todo
     }
 
