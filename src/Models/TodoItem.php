@@ -50,7 +50,6 @@ class TodoItem extends Model
             if (!$result) {
                 throw new Exception("Can not update title!.");
             }
-
             return $result;
         // Update a specific todo
     }
@@ -58,6 +57,16 @@ class TodoItem extends Model
     public static function deleteTodo($todoId)
     {
         // TODO: Implement me!
+        $query = "DELETE FROM " . static::TABLENAME . " WHERE id = :id";
+        self::$db->query($query);
+        self::$db->bind(':id', $todoId);
+        
+        $result = self::$db->execute(['id' => $todoId]);
+
+        if (!$result) {
+            throw new Exception("Can not update title!.");
+        }
+        return $result;
         // Delete a specific todo
     }
     
