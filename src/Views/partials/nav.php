@@ -6,6 +6,8 @@
 </header>
 
 <section class="main">
-    <input id="toggle-all" class="toggle-all" type="checkbox">
-    <label for="toggle-all">Mark all as complete</label>
+    <form action="todos/toggle-all" method="POST" name="toggle-all">
+        <input id="toggle-all" class="toggle-all" type="checkbox" onChange = "submit();">
+        <label for="toggle-all">Mark all as complete</label>
+    </form>
 </section>
