@@ -26,7 +26,7 @@ class TodoController extends Controller {
     {
         $body = filter_body(); // gives you the body of the request (the "envelope" contents)
         $todoId = $urlParams['id']; // the id of the todo we're trying to update
-        $completed = isset($body['status']) ? 1 : 0; // whether or not the todo has been checked or not
+        $completed = isset($body['status']) ? 'true' : 'false'; // whether or not the todo has been checked or not
 
         // TODO: Implement me!
         $result = TodoItem::updateTodo($todoId, $body['title'], $completed);
