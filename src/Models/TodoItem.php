@@ -12,7 +12,6 @@ class TodoItem extends Model
         if (!isset($title) || empty($title)) {
             throw new Exception("Parameter is required");
         }
-        // TODO: Implement me!
         $query = "INSERT INTO " . static::TABLENAME . " (title) VALUES (:title)";
         self::$db->query($query);
 
@@ -23,64 +22,71 @@ class TodoItem extends Model
         if (!$result) {
             throw new Exception("Could not create title!");
         }
-
-        return $result;
         // Create a new todo
+        return $result;
     }
 
     public static function updateTodo($todoId, $title, $completed = null)
     {
-        // TODO: Implement me!
         $query = "UPDATE " . static::TABLENAME . " SET 
-        title = :title,
-        completed = :completed WHERE id = :id ";
+        title = '$title', completed = '$completed' 
+        WHERE id = '$todoId' ";
 
         self::$db->query($query);
 
-        self::$db->bind(":id", $todoId);
-        self::$db->bind(":title", $title);
-        self::$db->bind(":completed", $completed);
+        // self::$db->bind(":id", $todoId);
+        // self::$db->bind(":title", $title);
+        // self::$db->bind(":completed", $completed);
         
-        $result = self::$db->execute([
-        'id' => $todoId,
-        'title' => $title,
-        'completed' => $completed
-        ]);
+        $result = self::$db->execute();
 
             if (!$result) {
                 throw new Exception("Can not update title!.");
             }
+            // Update a specific todo
             return $result;
-        // Update a specific todo
     }
 
     public static function deleteTodo($todoId)
     {
-        // TODO: Implement me!
-        $query = "DELETE FROM " . static::TABLENAME . " WHERE id = :id";
+        $query = "DELETE FROM " . static::TABLENAME . " WHERE id = $todoId";
         self::$db->query($query);
-        self::$db->bind(':id', $todoId);
-        
-        $result = self::$db->execute(['id' => $todoId]);
+
+        $result = self::$db->execute();
 
         if (!$result) {
             throw new Exception("Can not update title!.");
         }
-        return $result;
         // Delete a specific todo
+        return $result;
     }
     
-    // (Optional bonus methods below)
-    // public static function toggleTodos($completed)
-    // {
-    //     // TODO: Implement me!
-    //     // This is to toggle all todos either as completed or not completed
-    // }
+    public static function toggleTodos($completed)
+    {
+        $query = "UPDATE " . static::TABLENAME . " SET completed = 'true'";
+        self::$db->query($query);
 
-    // public static function clearCompletedTodos()
-    // {
-    //     // TODO: Implement me!
-    //     // This is to delete all the completed todos from the database
-    // }
+        $result = self::$db->execute();
+        
+        if (!$result) {
+            throw new Exception("Can not update title!.");
+        }
+        // This is to toggle all todos either as completed or not completed
+        return $result;
+    }
 
+
+    public static function clearCompletedTodos()
+    {
+        $query = "DELETE FROM " . static::TABLENAME . " WHERE completed = 'true' ";
+
+        self::$db->query($query);
+        $result = self::$db->execute();
+        
+        if (!$result) {
+            throw new Exception("Can not update title!.");
+        }
+        // This is to delete all the completed todos from the database
+        return $result;
+    }
 }

@@ -28,11 +28,9 @@ class TodoController extends Controller {
         $todoId = $urlParams['id']; // the id of the todo we're trying to update
         $completed = isset($body['status']) ? 'true' : 'false'; // whether or not the todo has been checked or not
 
-        // TODO: Implement me!
-        $result = TodoItem::updateTodo($todoId, $body['title'], $completed);
+        $title = $body['title'];
+        $result = TodoItem::updateTodo($todoId, $title, $completed);
 
-        // if there's a result
-        // use the redirect method to send the user back to the list of todos $this->redirect('/');
         if ($result) {
           $this->redirect('/');
         } else {
@@ -43,7 +41,6 @@ class TodoController extends Controller {
 
     public function delete($urlParams)
     {
-      // TODO: Implement me!
       $result = TodoItem::deleteTodo($urlParams['id']);
 
         if ($result) {
@@ -51,24 +48,30 @@ class TodoController extends Controller {
         } else {
           // otherwise, throw an exception or show an error message
           throw new \Exception("Request for redirect failed!.");
-        }
+          }
     }
 
-
-    /**
-     * OPTIONAL Bonus round!
-     * 
-     * The two methods below are optional, feel free to try and complete them
-     * if you're aiming for a higher grade.
-     */
     public function toggle()
     {
-      // (OPTIONAL) TODO: This action should toggle all todos to completed, or not completed.
+      $result = TodoItem::toggleTodos();
+      if ($result) {
+        $this->redirect('/');
+      } else {
+        // (OPTIONAL) TODO: This action should toggle all todos to completed, or not completed.
+        throw new \Exception("Request for redirect failed!.");
+        }
     }
 
     public function clear()
     {
-      // (OPTIONAL) TODO: This action should remove all completed todos from the table.
-    }
+      $result = TodoItem::clearCompletedTodos();
 
+      if ($result) {
+        $this->redirect('/');
+        } else {
+          // (OPTIONAL) TODO: This action should remove all completed todos from the table.
+          throw new \Exception("Request for redirect failed!.");
+          }
+    }
+      
 }
