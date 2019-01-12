@@ -37,15 +37,23 @@ class TodoController extends Controller {
           $this->redirect('/');
         } else {
           // otherwise, throw an exception or show an error message
-          throw new \Exception("Request for update failed!.");
+          throw new \Exception("Request for redirect failed!.");
         }
     }
 
     public function delete($urlParams)
     {
       // TODO: Implement me!
-    
+      $result = TodoItem::deleteTodo($urlParams['id']);
+
+        if ($result) {
+          $this->redirect('/');
+        } else {
+          // otherwise, throw an exception or show an error message
+          throw new \Exception("Request for redirect failed!.");
+        }
     }
+
 
     /**
      * OPTIONAL Bonus round!
