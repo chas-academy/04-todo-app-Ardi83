@@ -7,7 +7,7 @@
 
 <footer class="site-footer">
     <div class="small-container">
-        <p class="text-center">Made by <a href="#">Ardashir, but mostly Axel</a></p>
+        <p class="text-center">Made by <a href="#">Ardashir, but mostly by Axel</a></p>
     </div>
 </footer>
 

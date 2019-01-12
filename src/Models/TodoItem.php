@@ -32,12 +32,14 @@ class TodoItem extends Model
     {
         // TODO: Implement me!
         $query = "UPDATE " . static::TABLENAME . " SET 
-        title = :title WHERE id = :id ";
+        title = :title,
+        completed = :completed WHERE id = :id ";
 
         self::$db->query($query);
 
         self::$db->bind(":id", $todoId);
         self::$db->bind(":title", $title);
+        self::$db->bind(":completed", $completed);
         
         $result = self::$db->execute([
         'id' => $todoId,
