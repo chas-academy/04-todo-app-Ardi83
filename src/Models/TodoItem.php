@@ -9,7 +9,7 @@ class TodoItem extends Model
 
     public static function createTodo($title)
     {
-        if (!isset($title)) {
+        if (!isset($title) || empty($title)) {
             throw new Exception("Parameter is required");
         }
         // TODO: Implement me!
@@ -55,11 +55,11 @@ class TodoItem extends Model
         // Update a specific todo
     }
 
-    // public static function deleteTodo($todoId)
-    // {
-    //     // TODO: Implement me!
-    //     // Delete a specific todo
-    // }
+    public static function deleteTodo($todoId)
+    {
+        // TODO: Implement me!
+        // Delete a specific todo
+    }
     
     // (Optional bonus methods below)
     // public static function toggleTodos($completed)
