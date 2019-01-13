@@ -1,5 +1,12 @@
 http://todo.ardinasiri.chas.academy
 
+* In todos table, added default : current_timestamp
+* 1.  SET sql_mode = '';
+* 2. ALTER TABLE `todos` 
+*    MODIFY created TIMESTAMP 
+*    DEFAULT CURRENT_TIMESTAMP 
+*    NOT NULL;
+
 
 
 # 04-todo-app
