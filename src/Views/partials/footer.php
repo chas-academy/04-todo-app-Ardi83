@@ -3,6 +3,7 @@
     <span class="todo-count"><?= $count ?> item<?= $count !== 1 ? "s" : "" ?> left</span>
     <form action="todos/clear-completed" method="POST">
         <button class="clear-completed" name ="clear" onClick="submit();">Clear completed</button>
+    <a href="todos/undo" style = "color:grey; text-decoration: none; left:-120px; position:relative;" name= "undo">Un select all</a>
     </form>
 </footer>
 

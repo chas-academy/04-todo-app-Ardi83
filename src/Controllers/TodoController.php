@@ -12,11 +12,19 @@ class TodoController extends Controller {
         return $this->view('index', ['todos' => $todos]);
     }
 
+    public function error()
+    {
+      echo "<h1>Todo item should not be empty</h1>";
+    }
+
     public function add()
     {
         $body = filter_body();
+        $title = $body['title'];
+        if (!isset($title) || empty($title)) {
+          $this->redirect('/error');
+      }
         $result = TodoItem::createTodo($body['title']);
-
         if ($result) {
           $this->redirect('/');
         }
@@ -28,8 +36,7 @@ class TodoController extends Controller {
         $todoId = $urlParams['id']; // the id of the todo we're trying to update
         $completed = isset($body['status']) ? 'true' : 'false'; // whether or not the todo has been checked or not
 
-        $title = $body['title'];
-        $result = TodoItem::updateTodo($todoId, $title, $completed);
+        $result = TodoItem::updateTodo($todoId, $body['title'], $completed);
 
         if ($result) {
           $this->redirect('/');
@@ -54,6 +61,17 @@ class TodoController extends Controller {
     public function toggle()
     {
       $result = TodoItem::toggleTodos();
+      if ($result) {
+        $this->redirect('/');
+      } else {
+        // (OPTIONAL) TODO: This action should toggle all todos to completed, or not completed.
+        throw new \Exception("Request for redirect failed!.");
+        }
+    }
+
+    public function undo()
+    {
+      $result = TodoItem::undoToggleTodos();
       if ($result) {
         $this->redirect('/');
       } else {
