@@ -25,7 +25,7 @@ class TodoItem extends Model
     public static function updateTodo($todoId, $title, $completed = null)
     {
         $query = "UPDATE " . static::TABLENAME . " SET 
-        title = '$title', completed = '$completed' 
+        title = '$title', completed = $completed 
         WHERE id = '$todoId' ";
 
         self::$db->query($query);
@@ -53,9 +53,9 @@ class TodoItem extends Model
     }
     
     // This is to toggle all todos either as completed or not completed
-    public static function toggleTodos()
+    public static function toggleTodos($completed)
     {
-        $query = "UPDATE " . static::TABLENAME . " SET completed = 'true'";
+        $query = "UPDATE " . static::TABLENAME . " SET completed = $completed";
         self::$db->query($query);
 
         $result = self::$db->execute();
@@ -67,23 +67,23 @@ class TodoItem extends Model
     }
 
     // This is to unselect all todos either as completed or not completed
-    public static function undoToggleTodos()
-    {
-        $query = "UPDATE " . static::TABLENAME . " SET completed = 'false'";
-        self::$db->query($query);
+    // public static function undoToggleTodos()
+    // {
+    //     $query = "UPDATE " . static::TABLENAME . " SET completed = 0";
+    //     self::$db->query($query);
 
-        $result = self::$db->execute();
+    //     $result = self::$db->execute();
         
-        if (!$result) {
-            throw new Exception("Can not undo title!.");
-        }
-        return $result;
-    }
+    //     if (!$result) {
+    //         throw new Exception("Can not undo title!.");
+    //     }
+    //     return $result;
+    // }
 
     // This is to delete all the completed todos from the database
     public static function clearCompletedTodos()
     {
-        $query = "DELETE FROM " . static::TABLENAME . " WHERE completed = 'true' ";
+        $query = "DELETE FROM " . static::TABLENAME . " WHERE completed = 1 ";
 
         self::$db->query($query);
         $result = self::$db->execute();

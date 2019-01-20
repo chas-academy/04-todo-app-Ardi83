@@ -34,7 +34,7 @@ class TodoController extends Controller {
     {
         $body = filter_body(); // gives you the body of the request (the "envelope" contents)
         $todoId = $urlParams['id']; // the id of the todo we're trying to update
-        $completed = isset($body['status']) ? 'true' : 'false'; // whether or not the todo has been checked or not
+        $completed = isset($body['status']) ? 1 : 0; // whether or not the todo has been checked or not
 
         $result = TodoItem::updateTodo($todoId, $body['title'], $completed);
 
@@ -59,19 +59,10 @@ class TodoController extends Controller {
     }
 
     public function toggle()
-    {
-      $result = TodoItem::toggleTodos();
-      if ($result) {
-        $this->redirect('/');
-      } else {
-        // (OPTIONAL) TODO: This action should toggle all todos to completed, or not completed.
-        throw new \Exception("Request for redirect failed!.");
-        }
-    }
+    { 
+      $completed = $_POST['checking-all'];
 
-    public function undo()
-    {
-      $result = TodoItem::undoToggleTodos();
+      $result = TodoItem::toggleTodos($completed);
       if ($result) {
         $this->redirect('/');
       } else {
@@ -79,6 +70,17 @@ class TodoController extends Controller {
         throw new \Exception("Request for redirect failed!.");
         }
     }
+  
+    // public function undo()
+    // {
+    //   $result = TodoItem::undoToggleTodos();
+    //   if ($result) {
+    //     $this->redirect('/');
+    //   } else {
+    //     // (OPTIONAL) TODO: This action should toggle all todos to completed, or not completed.
+    //     throw new \Exception("Request for redirect failed!.");
+    //     }
+    // }
 
     public function clear()
     {
