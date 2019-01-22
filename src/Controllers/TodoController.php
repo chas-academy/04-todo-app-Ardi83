@@ -23,8 +23,9 @@ class TodoController extends Controller {
         $title = $body['title'];
         if (!isset($title) || empty($title)) {
           $this->redirect('/error');
-      }
-        $result = TodoItem::createTodo($body['title']);
+      } 
+      
+        $result = TodoItem::createTodo(htmlspecialchars($title, ENT_QUOTES, 'UTF-8'));
         if ($result) {
           $this->redirect('/');
         }
