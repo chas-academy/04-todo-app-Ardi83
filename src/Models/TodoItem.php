@@ -24,6 +24,7 @@ class TodoItem extends Model
     // Update a specific todo
     public static function updateTodo($todoId, $title, $completed = null)
     {
+        $title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
         $query = "UPDATE " . static::TABLENAME . " SET 
         title = '$title', completed = $completed 
         WHERE id = '$todoId' ";
